@@ -12,11 +12,11 @@ int main() {
     
     // Conecta à rede WiFi
     // Parâmetros: Nome da rede (SSID) e senha
-    connect_to_wifi("SSID da rede", "Senha da rede");
+    connect_to_wifi("Marco2g_EXT", "0314176100");
 
     // Configura o cliente MQTT
     // Parâmetros: ID do cliente, IP do broker, usuário, senha
-    mqtt_setup("bitdog1", "IP do broker", "aluno", "senha123");
+    mqtt_setup("bitdog1", "192.168.0.100", NULL, NULL);
 
     // Mensagem original a ser enviada
     const char *mensagem = "26.5";
@@ -28,7 +28,7 @@ int main() {
     // Loop principal do programa
     while (true) {
         // Publica a mensagem original (não criptografada)
-        mqtt_comm_publish("escola/sala1/temperatura", mensagem, strlen(mensagem));
+        mqtt_comm_publish("escola/sala1/temperatura", criptografada, strlen(mensagem));
         
         // Alternativa: Publica a mensagem criptografada (atualmente comentada)
         // mqtt_comm_publish("escola/sala1/temperatura", criptografada, strlen(mensagem));
