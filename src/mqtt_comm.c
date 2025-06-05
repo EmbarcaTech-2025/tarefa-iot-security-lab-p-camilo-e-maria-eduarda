@@ -2,6 +2,10 @@
 #include "mqtt_comm.h"    // Header file com as declarações locais
 // Base: https://github.com/BitDogLab/BitDogLab-C/blob/main/wifi_button_and_led/lwipopts.h
 #include "lwipopts.h"             // Configurações customizadas do lwIP
+#include "xor_cipher.h"
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 
 /* Variável global estática para armazenar a instância do cliente MQTT
  * 'static' limita o escopo deste arquivo */
@@ -58,6 +62,8 @@ void mqtt_setup(const char *client_id, const char *broker_ip, const char *user, 
     //   - NULL: argumento opcional para o callback
     //   - &ci: informações de conexão
     mqtt_client_connect(client, &broker_addr, 1883, mqtt_connection_cb, NULL, &ci);
+    // Define callbacks para mensagens recebidas
+    mqtt_set_inpub_callback(client, mqtt_incoming_publish_cb, mqtt_incoming_data_cb, NULL);
 }
 
 /* Callback de confirmação de publicação
@@ -93,5 +99,26 @@ void mqtt_comm_publish(const char *topic, const uint8_t *data, size_t len) {
 
     if (status != ERR_OK) {
         printf("mqtt_publish falhou ao ser enviada: %d\n", status);
+    }
+}
+/* Função para inscrever-se em um tópico MQTT
+ * Parâmetro:
+ *   - topic: nome do tópico (ex: "escola/sala1/temperatura") */
+void mqtt_comm_subscribe(const char *topic) {
+    // Registra os callbacks globais para mensagens recebidas
+    mqtt_set_inpub_callback(client, mqtt_incoming_publish_cb, mqtt_incoming_data_cb, NULL);
+
+    err_t status = mqtt_subscribe(
+        client,
+        topic,
+        0,   // QoS 0
+        NULL, // Callback de confirmação (opcional)
+        NULL  // Argumento do callback
+    );
+
+    if (status == ERR_OK) {
+        printf("Inscrito no tópico: %s\n", topic);
+    } else {
+        printf("Falha ao se inscrever no tópico %s. Código: %d\n", topic, status);
     }
 }
