@@ -2,7 +2,7 @@
 
 # Tarefa: IoT Security Lab - EmbarcaTech 2025
 
-Autor: **Insira Seu Nome**
+Autor: **Maria Eduarda Araujo Pereira e Pedro Túlio Curvelo Camilo**
 
 Curso: Residência Tecnológica em Sistemas Embarcados
 
@@ -11,8 +11,15 @@ Instituição: EmbarcaTech - HBr
 Campinas, ___ de 2025
 
 ---
+<h2>🛡️ Segurança em IoT com BitDogLab (C)</h2>
+<h3>🔐 Autenticação, Criptografia e Proteção contra Ataques em Comunicação MQTT</h3>
 
-<!-- INSIRA O CONTEÚDO DO SEU README AQUI! -->
+<h4>🎯 Objetivo</h4>
+<p>
+    Implementar uma comunicação MQTT segura com Raspberry Pi Pico W usando BitDogLab em C.
+    A atividade envolve conexão via Wi-Fi, autenticação no broker MQTT (Mosquitto), criptografia leve
+    e defesa contra sniffing e replay.
+</p>
 
 ---
 
